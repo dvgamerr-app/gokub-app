@@ -30,7 +30,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@vitejs/plugin-vue": "^5.0.4",
-    "bootstrap": "^5.2.3",
+    "bootstrap": "^5.3.3",
     "electron": "^29.1.6",
     "electron-builder": "^24.4.0",
     "sass": "^1.64.2",
