@@ -7,7 +7,7 @@ import { initilizeApp } from '../user-config'
 import settings from 'electron-settings'
 
 import { onWindowPositionEvent } from './event/settings'
-import ipcEvent from './event/ipc-main'
+// import ipcEvent from './event/ipc-main'
 
 log.initialize({ preload: true })
 
@@ -49,10 +49,10 @@ if (!app.requestSingleInstanceLock()) {
 // Read more on https://www.electronjs.org/docs/latest/tutorial/security
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
-let win: BrowserWindow | null = null
+let win: BrowserWindow
 // Here, you can also use other preload
 const preload = join(__dirname, '../preload/index.js')
-const url = process.env.VITE_DEV_SERVER_URL
+const url = process.env.VITE_DEV_SERVER_URL || ''
 const indexHtml = join(process.env.DIST, 'index.html')
 
 async function createWindow() {
@@ -116,19 +116,19 @@ async function createWindow() {
   win.on('maximize', onWindowPositionEvent(win))
   win.on('moved', onWindowPositionEvent(win))
 
-  ipcMain.handle('APP-RELOAD', async (e, ...args) => {
+  ipcMain.handle('APP-RELOAD', async () => {
     win.reload()
   })
 
-  const ipcLog = log.scope('IPC');
-  for (const eventName in ipcEvent) {
-    ipcMain.handle(eventName, async (e, ...args) => {
-      ipcLog.verbose(eventName, args)
-      const result = await ipcEvent[eventName](e, ...args)
-      ipcLog.verbose({ eventName, args, result })
-      return result
-    })
-  }
+  // const ipcLog = log.scope('IPC');
+  // for (const eventName in ipcEvent) {
+  //   ipcMain.handle(eventName, async (e, ...args) => {
+  //     ipcLog.verbose(eventName, args)
+  //     const result = await ipcEvent[eventName](e, ...args)
+  //     ipcLog.verbose({ eventName, args, result })
+  //     return result
+  //   })
+  // }
 
   if (app.isPackaged) {
     win.loadFile(indexHtml)
@@ -153,7 +153,7 @@ async function createWindow() {
 app.whenReady().then(createWindow)
 
 app.on('window-all-closed', () => {
-  win = null
+  win.close()
   if (process.platform !== 'darwin') app.quit()
 })
 
@@ -175,7 +175,7 @@ app.on('activate', () => {
 })
 
 // new window example arg: new windows url
-ipcMain.handle('open-win', (event, arg) => {
+ipcMain.handle('open-win', (_, arg) => {
   const childWindow = new BrowserWindow({
     webPreferences: {
       preload,

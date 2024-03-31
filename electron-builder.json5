@@ -1,9 +1,9 @@
 /**
  * @see https://www.electron.build/configuration/configuration
  */
-{
+ {
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
-  "appId": "com.scg-wedo.mubu-app",
+  "appId": "com.dvgamerr.app.gokub",
   "asar": true,
   "directories": {
     "output": "release/${version}"

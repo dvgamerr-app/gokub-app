@@ -1,4 +1,4 @@
-# MuBu-App
+# GOKub App
 
 🥳 Really simple `Electron` + `Vue` + `Vite` boilerplate.
 

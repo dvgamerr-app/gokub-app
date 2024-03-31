@@ -1,14 +1,14 @@
 <script async setup lang="ts">
 // import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { ipcRenderer } from 'electron'
+// import { useRouter } from 'vue-router'
+// import { ipcRenderer } from 'electron'
 // import { version } from '../package.json'
 
-const router = useRouter()
+// const router = useRouter()
 
-ipcRenderer.invoke('MUBU-TOKEN-GET').then(foundClient => {
-  if (!foundClient) return router.replace('/setup')
-})
+// ipcRenderer.invoke('MUBU-TOKEN-GET').then(foundClient => {
+//   if (!foundClient) return router.replace('/setup')
+// })
 
 // import UIDropdownItem from './components/ui/DropdownItem.vue'
 
@@ -19,8 +19,8 @@ ipcRenderer.invoke('MUBU-TOKEN-GET').then(foundClient => {
   <header class="title">
     <div class="bar d-flex position-relative align-items-stretch px-2">
       <div class="logo d-flex align-items-center flex-fill" style="column-gap: 0.4em; padding:0 .5em">
-        <img src="./assets/icon.png" height="20" width="20" alt="MuBu App" />
-        <span class="text">MuBu App</span>
+        <img src="./assets/icon.png" height="20" width="20" alt="GOKub App" />
+        <span class="text">GOKub App</span>
       </div>
     </div>
   </header>

@@ -17,7 +17,7 @@ const initMsg = async (msg: string) => {
   postMessage({ payload: 'init-msg', msg }, '*')
 }
 
-initMsg('Initialize MuBu')
+initMsg('Initialize GOKub')
 console.time('Initialize')
 Promise.all([
   ipcRenderer.invoke('INIT-CONFIG'),

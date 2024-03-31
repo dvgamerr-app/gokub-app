@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import log from 'electron-log/renderer'
-import { ipcRenderer } from 'electron'
+// import log from 'electron-log/renderer'
+// import { ipcRenderer } from 'electron'
 import { useRouter } from 'vue-router'
 import { ref, reactive, Ref } from 'vue'
 
@@ -28,41 +28,41 @@ const accessToken = reactive<AccessTokenApp>({
 })
 
 const onAuthAnypointConfig = async () => {
-  eventSubmit.value = true
-  accessToken.anypoint.error = !/[a-f0-9]{32,32}/.test(accessToken.anypoint.clientId.toString()) || !/[a-zA-Z0-9]{32,32}/.test(accessToken.anypoint.clientSecret.toString())
-  accessToken.gocd.error = false
+//   eventSubmit.value = true
+//   accessToken.anypoint.error = !/[a-f0-9]{32,32}/.test(accessToken.anypoint.clientId.toString()) || !/[a-zA-Z0-9]{32,32}/.test(accessToken.anypoint.clientSecret.toString())
+//   accessToken.gocd.error = false
 
-  if (/^(http|https):\/\//.test(accessToken.gocd.domain.toString())) {
-    const validate = await ipcRenderer.invoke('CHECK-GOCD_HEATH', accessToken.gocd.domain.toString())
-    accessToken.gocd.error = !validate || !/[a-f0-9]{40,40}/.test(accessToken.gocd.token.toString())
-  }
+//   if (/^(http|https):\/\//.test(accessToken.gocd.domain.toString())) {
+//     const validate = await ipcRenderer.invoke('CHECK-GOCD_HEATH', accessToken.gocd.domain.toString())
+//     accessToken.gocd.error = !validate || !/[a-f0-9]{40,40}/.test(accessToken.gocd.token.toString())
+//   }
 
-  if (accessToken.anypoint.error || accessToken.gocd.error) {
-    eventSubmit.value = false
-    return
-  }
+//   if (accessToken.anypoint.error || accessToken.gocd.error) {
+//     eventSubmit.value = false
+//     return
+//   }
 
-  const verify = await ipcRenderer.invoke('MUBU-TOKEN-VERIFY', JSON.stringify(accessToken))
-  accessToken.anypoint.error = verify.anypoint
-  accessToken.gocd.error = verify.gocd
+//   const verify = await ipcRenderer.invoke('MUBU-TOKEN-VERIFY', JSON.stringify(accessToken))
+//   accessToken.anypoint.error = verify.anypoint
+//   accessToken.gocd.error = verify.gocd
 
-  if (accessToken.anypoint.error || accessToken.gocd.error) {
-    eventSubmit.value = false
-    return
-  }
-  eventAuth.value = true
-  await ipcRenderer.invoke('MULESOFT-FETCH')
-  router.replace('/')
+//   if (accessToken.anypoint.error || accessToken.gocd.error) {
+//     eventSubmit.value = false
+//     return
+//   }
+//   eventAuth.value = true
+//   await ipcRenderer.invoke('MULESOFT-FETCH')
+//   router.replace('/')
 }
 
 
-ipcRenderer.invoke('MUBU-TOKEN-GET').then(token => {
-  if (token) { eventBackButton.value = true }
-  accessToken.anypoint.clientId = token.anypoint.client_id
-  accessToken.anypoint.clientSecret = token.anypoint.client_secret
+// ipcRenderer.invoke('MUBU-TOKEN-GET').then(token => {
+//   if (token) { eventBackButton.value = true }
+//   accessToken.anypoint.clientId = token.anypoint.client_id
+//   accessToken.anypoint.clientSecret = token.anypoint.client_secret
 
-  accessToken.gocd = token.gocd
-})
+//   accessToken.gocd = token.gocd
+// })
 </script>
 
 <template>
